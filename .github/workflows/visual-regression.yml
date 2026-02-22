@@ -26,12 +26,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Capture baselines (if missing)
-        if: env.SCRNPIX_API_KEY != ''
-        run: npm run baseline
-        env:
-          SCRNPIX_API_KEY: ${{ secrets.SCRNPIX_API_KEY }}
-
       - name: Visual regression comparison
         if: env.SCRNPIX_API_KEY != ''
         run: npm run compare
