@@ -1,0 +1,7 @@
+node_modules/
+dist/
+current/
+diffs/
+.env
+!.env.example
+*.tsbuildinfo
