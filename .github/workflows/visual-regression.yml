@@ -26,8 +26,21 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Capture baselines (if missing)
+        if: env.SCRNPIX_API_KEY != ''
+        run: npm run baseline
+        env:
+          SCRNPIX_API_KEY: ${{ secrets.SCRNPIX_API_KEY }}
+
       - name: Visual regression comparison
+        if: env.SCRNPIX_API_KEY != ''
         run: npm run compare
+        env:
+          SCRNPIX_API_KEY: ${{ secrets.SCRNPIX_API_KEY }}
+
+      - name: Warn if API key is not configured
+        if: env.SCRNPIX_API_KEY == ''
+        run: echo "::warning::SCRNPIX_API_KEY secret is not set. Skipping visual regression comparison. Add it in Settings > Secrets > Actions."
         env:
           SCRNPIX_API_KEY: ${{ secrets.SCRNPIX_API_KEY }}
 
@@ -51,3 +64,4 @@ jobs:
             current/
             diffs/
           retention-days: 7
+          if-no-files-found: ignore

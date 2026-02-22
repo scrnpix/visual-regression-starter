@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 export interface ScreenshotTarget {
   name: string;
   url: string;

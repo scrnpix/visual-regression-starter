@@ -6,7 +6,7 @@ Catch visual regressions automatically using [Scrnpix](https://scrnpix.com?ref=v
 
 ```bash
 # 1. Clone and install
-git clone https://github.com/AntlerDigital/visual-regression-starter.git
+git clone https://github.com/scrnpix/visual-regression-starter.git
 cd visual-regression-starter
 npm install
 
