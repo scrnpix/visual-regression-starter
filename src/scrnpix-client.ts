@@ -10,6 +10,13 @@ const ERROR_MESSAGES: Record<string, string> = {
   rendering_error: "Rendering failed. The page may be unreachable or timing out.",
 };
 
+const STATUS_FALLBACKS: Record<number, string> = {
+  401: "Invalid or missing API key. Check your SCRNPIX_API_KEY in .env.",
+  402: "Insufficient credits. Top up at https://scrnpix.com?ref=visual-regression-starter",
+  429: "Rate limit exceeded. Wait a moment and try again.",
+  500: "Scrnpix server error. Try again later.",
+};
+
 export class ScrnpixClient {
   private apiKey: string;
   private apiUrl: string;
@@ -43,6 +50,7 @@ export class ScrnpixClient {
 
       const message =
         ERROR_MESSAGES[errorCode] ??
+        STATUS_FALLBACKS[response.status] ??
         `Screenshot failed (HTTP ${response.status}): ${errorCode}`;
 
       throw new Error(`[${target.name}] ${message}`);
